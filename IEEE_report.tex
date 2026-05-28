@@ -1,0 +1,36 @@
+\documentclass[conference]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\begin{document}
+\title{CIFAR-10 Classification: Augmentation and Optimization Experiments}
+\author{Must\\Software Engineering Student\\Institution}
+\maketitle
+\begin{abstract}
+We design and evaluate a convolutional neural network for CIFAR-10 classification exploring two paths: data augmentation (CutMix/Cutout) and optimization strategies (SGD vs Adam with LR scheduling). We report experimental comparisons, per-class performance, and visual explainability results.
+\end{abstract}
+
+\section{Introduction}
+This project compares augmentation and optimization choices for CIFAR-10. Our goal is to justify design choices and analyze their impact on generalization and robustness.
+
+\section{Model Architecture}
+We adopt a ResNet-18 backbone adjusted for CIFAR-10 (3x32 input): first convolution swapped to 3x3, no maxpool, final FC adapted to 10 classes. Model has ~11M parameters.
+
+\section{Experiments \& Results}
+Two experiments were conducted:
+\begin{itemize}
+  \item \textbf{Augmentation:} baseline (random crop+flip) vs CutMix (mixing images). CutMix improved validation accuracy and reduced overfitting observed in training curves.
+  \item \textbf{Optimization:} SGD with momentum + CosineAnnealing LR outperformed Adam for final validation accuracy in our runs; Adam converged faster but to a slightly lower peak.
+\end{itemize}
+
+We report accuracy, confusion matrix, and per-class accuracy in the Colab notebook. Grad-CAM visualizations highlight class-discriminative regions, supporting model interpretability.
+
+\section{Conclusion}
+Augmentation (CutMix) and careful optimization (SGD+LR scheduling) improved CIFAR-10 performance. Detailed plots and code are provided in the Colab notebook.
+
+\section*{References}
+[1] H. Zhang et al., ``mixup: Beyond empirical risk minimization'', ICLR 2018.\\
+[2] Y. Yun et al., ``CutMix: Regularization Strategy to Train Strong Classifiers'', ICCV 2019.
+\end{document}
